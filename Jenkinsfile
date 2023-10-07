@@ -1,21 +1,41 @@
 pipeline {
     agent { node { label 'AGENT-1' } }
+    options {
+        ansiColor('xterm')
+    }
 
     stages {
-        stage('Build') {
+        stage('Init') {
             steps {
-                echo 'Building..'
+                sh'''
+                    cd 01-vpc
+                    ls -ltr
+                    pwd
+                    terraform init
+                '''
             }
         }
-        stage('Test') {
+        stage('Plan') {
             steps {
-                echo 'Testing..'
+                sh'''
+                    ls -ltr
+                    pwd
+                    cd 01-vpc
+                    terraform plan
+                '''
             }
         }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-            }
+    }
+
+    post { 
+        always { 
+            echo 'I will always run whether job is success or not'
+        }
+        success{
+            echo 'I will run only when job is success'
+        }
+        failure{
+            echo 'I will run when failure'
         }
     }
 }
