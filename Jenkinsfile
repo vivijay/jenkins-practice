@@ -4,7 +4,7 @@ pipeline {
         ansiColor('xterm')
     }
  environment { 
-        User = 'vinit'
+        cc = 'vinit'
     }
     stages {
         stage('Build') {
