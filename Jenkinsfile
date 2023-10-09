@@ -6,6 +6,9 @@ pipeline {
  environment { 
         cc = 'vinit'
     }
+     triggers {
+        cron('* * * * *')
+    }
     stages {
         stage('Build') {
             steps {
