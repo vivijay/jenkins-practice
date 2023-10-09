@@ -3,28 +3,33 @@ pipeline {
     options {
         ansiColor('xterm')
     }
-
+ environment { 
+        User = 'vinit'
+    }
     stages {
-        stage('Init') {
+        stage('Build') {
             steps {
                 sh'''
-                    cd 01-vpc
-                    ls -ltr
-                    pwd
-                    terraform init
+                    echo "Building..." 
+                    printenv
                 '''
             }
         }
-        stage('Plan') {
+        stage('Test') {
             steps {
                 sh'''
-                    ls -ltr
-                    pwd
-                    cd 01-vpc
-                    terraform plan
+                    echo "testing"
                 '''
             }
         }
+        // stage('Example') {
+        //     environment { 
+        //         AN_ACCESS_KEY = credentials('my-predefined-secret-text') 
+        //     }
+        //     steps {
+        //         sh 'printenv'
+        //     }
+        // }
     }
 
     post { 
